@@ -1,6 +1,8 @@
 package murillo.com.br.fast_double_click.model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 
@@ -8,5 +10,7 @@ import lombok.Data;
 public class RegistroTempo {
   
   String tempo;
-  LocalDateTime data;
+
+  @JsonFormat(pattern = "yyyy-MM-dd")
+  LocalDate data;
 }
