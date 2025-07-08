@@ -14,7 +14,7 @@ import murillo.com.br.fast_double_click.model.RegistroTempo;
 import murillo.com.br.fast_double_click.service.CronometroService;
 
 @RestController
-@RequestMapping("cronometro/")
+@RequestMapping("/cronometro")
 @RequiredArgsConstructor
 public class CronometroController {
 
