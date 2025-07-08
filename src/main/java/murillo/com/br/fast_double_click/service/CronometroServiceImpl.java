@@ -1,18 +1,42 @@
 package murillo.com.br.fast_double_click.service;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import murillo.com.br.fast_double_click.model.RegistroTempo;
 
 @Service
 public class CronometroServiceImpl implements CronometroService {
 
+  private final ObjectMapper objectMapper = new ObjectMapper();
+
   @Override
   public List<RegistroTempo> listarTempos() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'listarTempos'");
+
+    try {
+      InputStream arquivo = getClass()
+          .getClassLoader()
+          .getResourceAsStream("registros.json");
+
+      if (arquivo == null) {
+        throw new FileNotFoundException("Arquivo registros.json não encontrado em resources.");
+      }
+      return objectMapper.readValue(
+          arquivo,
+          new TypeReference<List<RegistroTempo>>() {
+          });
+
+    } catch (Exception e) {
+      e.printStackTrace();
+      throw new InternalError("Falha ao listar os tempos");
+    }
+
   }
 
   @Override
@@ -20,5 +44,5 @@ public class CronometroServiceImpl implements CronometroService {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'registrarTempo'");
   }
-  
+
 }
